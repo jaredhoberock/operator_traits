@@ -10,7 +10,7 @@ namespace __operator_traits_namespace
 template<typename T1, typename T2> struct is_different : std::true_type {};
 
 
-template<typename T1> struct is_different<T1,T2> : std::false_type {};
+template<typename T1> struct is_different<T1,T1> : std::false_type {};
 
 
 struct any
@@ -121,11 +121,8 @@ struct has_operator_divides_assign
 template<typename, typename, typename Enable = void> struct operator_plus_result {};
 
 
-template<typename T1, typename T2 = T1,
-         typename = typename std::enable_if<
-           has_operator_plus<T1,T2>::value
-         >::type>
-struct operator_plus_result
+template<typename T1, typename T2>
+struct operator_plus_result<T1, T2, typename std::enable_if<has_operator_plus<T1,T2>::value>::type>
 {
   using type = decltype(std::declval<T1>() + std::declval<T2>());
 };
@@ -134,12 +131,8 @@ struct operator_plus_result
 template<typename, typename, typename Enable = void> struct operator_plus_assign_result {};
 
 
-template<typename T1,
-         typename T2 = typename std::remove_reference<T1>::type,
-         typename = typename std::enable_if<
-           has_operator_plus_assign<T1,T2>::value
-         >::type>
-struct operator_plus_assign_result
+template<typename T1, typename T2>
+struct operator_plus_assign_result<T1,T2, typename std::enable_if<has_operator_plus_assign<T1,T2>::value>::type>
 {
   using type = decltype(std::declval<T1>() += std::declval<T2>());
 };
@@ -148,11 +141,8 @@ struct operator_plus_assign_result
 template<typename, typename, typename Enable = void> struct operator_minus_result {};
 
 
-template<typename T1, typename T2 = T1,
-         typename = typename std::enable_if<
-           has_operator_minus<T1,T2>::value
-         >::type>
-struct operator_minus_result
+template<typename T1, typename T2>
+struct operator_minus_result<T1,T2, typename std::enable_if<has_operator_minus<T1,T2>::value>::type>
 {
   using type = decltype(std::declval<T1>() - std::declval<T2>());
 };
@@ -161,12 +151,8 @@ struct operator_minus_result
 template<typename, typename, typename Enable = void> struct operator_minus_assign_result {};
 
 
-template<typename T1,
-         typename T2 = typename std::remove_reference<T1>::type,
-         typename = typename std::enable_if<
-           has_operator_minus_assign<T1,T2>::value
-         >::type>
-struct operator_minus_assign_result
+template<typename T1, typename T2>
+struct operator_minus_assign_result<T1, T2, typename std::enable_if<has_operator_minus_assign<T1,T2>::value>::type>
 {
   using type = decltype(std::declval<T1>() -= std::declval<T2>());
 };
@@ -175,11 +161,8 @@ struct operator_minus_assign_result
 template<typename, typename, typename Enable = void> struct operator_multiplies_result {};
 
 
-template<typename T1, typename T2 = T1,
-         typename = typename std::enable_if<
-           has_operator_multiplies<T1,T2>::value
-         >::type>
-struct operator_multiplies_result
+template<typename T1, typename T2>
+struct operator_multiplies_result<T1, T2, typename std::enable_if<has_operator_multiplies<T1,T2>::value>::type>
 {
   using type = decltype(std::declval<T1>() - std::declval<T2>());
 };
@@ -188,12 +171,8 @@ struct operator_multiplies_result
 template<typename, typename, typename Enable = void> struct operator_multiplies_assign_result {};
 
 
-template<typename T1,
-         typename T2 = typename std::remove_reference<T1>::type,
-         typename = typename std::enable_if<
-           has_operator_multiplies_assign<T1,T2>::value
-         >::type>
-struct operator_multiplies_assign_result
+template<typename T1, typename T2>
+struct operator_multiplies_assign_result<T1,T2, typename std::enable_if<has_operator_multiplies_assign<T1,T2>::value>::type>
 {
   using type = decltype(std::declval<T1>() -= std::declval<T2>());
 };
@@ -202,11 +181,8 @@ struct operator_multiplies_assign_result
 template<typename, typename, typename Enable = void> struct operator_divides_result {};
 
 
-template<typename T1, typename T2 = T1,
-         typename = typename std::enable_if<
-           has_operator_divides<T1,T2>::value
-         >::type>
-struct operator_divides_result
+template<typename T1, typename T2>
+struct operator_divides_result<T1,T2, typename std::enable_if<has_operator_divides<T1,T2>::value>::type>
 {
   using type = decltype(std::declval<T1>() - std::declval<T2>());
 };
@@ -215,12 +191,8 @@ struct operator_divides_result
 template<typename, typename, typename Enable = void> struct operator_divides_assign_result {};
 
 
-template<typename T1,
-         typename T2 = typename std::remove_reference<T1>::type,
-         typename = typename std::enable_if<
-           has_operator_divides_assign<T1,T2>::value
-         >::type>
-struct operator_divides_assign_result
+template<typename T1, typename T2>
+struct operator_divides_assign_result<T1, T2, typename std::enable_if<has_operator_divides_assign<T1,T2>::value>::type>
 {
   using type = decltype(std::declval<T1>() -= std::declval<T2>());
 };

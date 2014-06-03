@@ -81,6 +81,15 @@ int main()
   std::cout << "doesnt_have_em_all does not have operator divides: " << has_operator_divides<doesnt_have_em_all>::value << std::endl;
   assert(!has_operator_divides<doesnt_have_em_all>::value);
 
+  std::cout << "result of int + int is int: " << std::is_same<int,operator_plus_result<int,int>::type>::value << std::endl;
+  assert((std::is_same<int,operator_plus_result<int,int>::type>::value));
+
+  std::cout << "result of int += int is int&: " << std::is_same<int&,operator_plus_assign_result<int&,int>::type>::value << std::endl;
+  assert((std::is_same<int&,operator_plus_assign_result<int&,int>::type>::value));
+
+  std::cout << "result of has_em += has_em is has_em&: " << std::is_same<has_em&,operator_plus_assign_result<has_em&,has_em>::type>::value << std::endl;
+  assert((std::is_same<has_em&,operator_plus_assign_result<has_em&,has_em>::type>::value));
+
   return 0;
 }
 
