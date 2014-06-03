@@ -1,4 +1,4 @@
-#include "has_arithmetic_operators.hpp"
+#include "operator_traits.hpp"
 #include <iostream>
 #include <cassert>
 

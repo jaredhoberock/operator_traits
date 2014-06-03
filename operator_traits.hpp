@@ -3,7 +3,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace __has_arithmetic_namespace
+namespace __operator_traits_namespace
 {
 
 
@@ -113,35 +113,35 @@ struct has_operator_divides_assign
 
 
 template<typename T1, typename T2 = T1, typename Result = typename std::common_type<T1,T2>::type>
-struct has_operator_plus : __has_arithmetic_namespace::has_operator_plus<T1,T2,Result> {};
+struct has_operator_plus : __operator_traits_namespace::has_operator_plus<T1,T2,Result> {};
 
 
 template<typename T1, typename T2 = T1, typename Result = T1&>
-struct has_operator_plus_assign : __has_arithmetic_namespace::has_operator_plus_assign<T1,T2,Result> {};
+struct has_operator_plus_assign : __operator_traits_namespace::has_operator_plus_assign<T1,T2,Result> {};
 
 
 template<typename T1, typename T2 = T1, typename Result = typename std::common_type<T1,T2>::type>
-struct has_operator_minus : __has_arithmetic_namespace::has_operator_minus<T1,T2,Result> {};
+struct has_operator_minus : __operator_traits_namespace::has_operator_minus<T1,T2,Result> {};
 
 
 template<typename T1, typename T2 = T1, typename Result = T1&>
-struct has_operator_minus_assign : __has_arithmetic_namespace::has_operator_minus_assign<T1,T2,Result> {};
+struct has_operator_minus_assign : __operator_traits_namespace::has_operator_minus_assign<T1,T2,Result> {};
 
 
 template<typename T1, typename T2 = T1, typename Result = typename std::common_type<T1,T2>::type>
-struct has_operator_multiplies : __has_arithmetic_namespace::has_operator_multiplies<T1,T2,Result> {};
+struct has_operator_multiplies : __operator_traits_namespace::has_operator_multiplies<T1,T2,Result> {};
 
 
 template<typename T1, typename T2 = T1, typename Result = T1&>
-struct has_operator_multiplies_assign : __has_arithmetic_namespace::has_operator_multiplies_assign<T1,T2,Result> {};
+struct has_operator_multiplies_assign : __operator_traits_namespace::has_operator_multiplies_assign<T1,T2,Result> {};
 
 
 template<typename T1, typename T2 = T1, typename Result = typename std::common_type<T1,T2>::type>
-struct has_operator_divides : __has_arithmetic_namespace::has_operator_divides<T1,T2,Result> {};
+struct has_operator_divides : __operator_traits_namespace::has_operator_divides<T1,T2,Result> {};
 
 
 template<typename T1, typename T2 = T1, typename Result = T1&>
-struct has_operator_divides_assign : __has_arithmetic_namespace::has_operator_divides_assign<T1,T2,Result> {};
+struct has_operator_divides_assign : __operator_traits_namespace::has_operator_divides_assign<T1,T2,Result> {};
 
 
 template<typename T1, typename T2 = T1>
