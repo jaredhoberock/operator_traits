@@ -37,6 +37,12 @@ no operator*=(any, any);
 no operator/(any, any);
 no operator/=(any, any);
 
+no operator<(any, any);
+no operator<=(any, any);
+
+no operator>(any, any);
+no operator>=(any, any);
+
 
 template<typename T1, typename T2 = T1, typename Result = ignore>
 struct has_operator_plus
@@ -116,6 +122,42 @@ struct has_operator_divides_assign
     >
 {
 };
+
+
+template<typename T1, typename T2 = T1, typename Result = ignore>
+struct has_operator_less
+  : is_different<
+      decltype(std::declval<T1>() < std::declval<T2>()),
+      no
+    >
+{};
+
+
+template<typename T1, typename T2 = T1, typename Result = ignore>
+struct has_operator_less_equal
+  : is_different<
+      decltype(std::declval<T1>() <= std::declval<T2>()),
+      no
+    >
+{};
+
+
+template<typename T1, typename T2 = T1, typename Result = ignore>
+struct has_operator_greater
+  : is_different<
+      decltype(std::declval<T1>() > std::declval<T2>()),
+      no
+    >
+{};
+
+
+template<typename T1, typename T2 = T1, typename Result = ignore>
+struct has_operator_greater_equal
+  : is_different<
+      decltype(std::declval<T1>() >= std::declval<T2>()),
+      no
+    >
+{};
 
 
 template<typename, typename, typename Enable = void> struct operator_plus_result {};
@@ -198,6 +240,46 @@ struct operator_divides_assign_result<T1, T2, typename std::enable_if<has_operat
 };
 
 
+template<typename, typename, typename Enable = void> struct operator_less_result {};
+
+
+template<typename T1, typename T2>
+struct operator_less_result<T1,T2, typename std::enable_if<has_operator_less<T1,T2>::value>::type>
+{
+  using type = decltype(std::declval<T1>() < std::declval<T2>());
+};
+
+
+template<typename, typename, typename Enable = void> struct operator_less_equal_result {};
+
+
+template<typename T1, typename T2>
+struct operator_less_equal_result<T1,T2, typename std::enable_if<has_operator_less_equal<T1,T2>::value>::type>
+{
+  using type = decltype(std::declval<T1>() <= std::declval<T2>());
+};
+
+
+template<typename, typename, typename Enable = void> struct operator_greater_result {};
+
+
+template<typename T1, typename T2>
+struct operator_greater_result<T1,T2, typename std::enable_if<has_operator_greater<T1,T2>::value>::type>
+{
+  using type = decltype(std::declval<T1>() > std::declval<T2>());
+};
+
+
+template<typename, typename, typename Enable = void> struct operator_greater_equal_result {};
+
+
+template<typename T1, typename T2>
+struct operator_greater_equal_result<T1,T2, typename std::enable_if<has_operator_greater_equal<T1,T2>::value>::type>
+{
+  using type = decltype(std::declval<T1>() >= std::declval<T2>());
+};
+
+
 }
 
 
@@ -248,6 +330,20 @@ struct has_arithmetic_operators : std::integral_constant<
 {};
 
 
+template<typename T1, typename T2 = T1, typename Result = __operator_traits_namespace::ignore>
+struct has_operator_less : __operator_traits_namespace::has_operator_divides_assign<T1,T2,Result> {};
+
+template<typename T1, typename T2 = T1, typename Result = __operator_traits_namespace::ignore>
+struct has_operator_less_equal : __operator_traits_namespace::has_operator_divides_assign<T1,T2,Result> {};
+
+
+template<typename T1, typename T2 = T1, typename Result = __operator_traits_namespace::ignore>
+struct has_operator_greater : __operator_traits_namespace::has_operator_divides_assign<T1,T2,Result> {};
+
+template<typename T1, typename T2 = T1, typename Result = __operator_traits_namespace::ignore>
+struct has_operator_greater_equal : __operator_traits_namespace::has_operator_divides_assign<T1,T2,Result> {};
+
+
 template<typename T1, typename T2 = T1>
 struct operator_plus_result : __operator_traits_namespace::operator_plus_result<T1,T2> {};
 
@@ -278,4 +374,20 @@ struct operator_divides_result : __operator_traits_namespace::operator_divides_r
 
 template<typename T1, typename T2 = typename std::remove_reference<T1>::type>
 struct operator_divides_assign_result : __operator_traits_namespace::operator_divides_assign_result<T1,T2> {};
+
+
+template<typename T1, typename T2 = T1>
+struct operator_less_result : __operator_traits_namespace::operator_less_result<T1,T2> {};
+
+
+template<typename T1, typename T2 = T1>
+struct operator_less_equal_result : __operator_traits_namespace::operator_less_equal_result<T1,T2> {};
+
+
+template<typename T1, typename T2 = T1>
+struct operator_greater_result : __operator_traits_namespace::operator_greater_result<T1,T2> {};
+
+
+template<typename T1, typename T2 = T1>
+struct operator_greater_equal_result : __operator_traits_namespace::operator_greater_equal_result<T1,T2> {};
 

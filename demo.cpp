@@ -90,6 +90,12 @@ int main()
   std::cout << "result of has_em += has_em is has_em&: " << std::is_same<has_em&,operator_plus_assign_result<has_em&,has_em>::type>::value << std::endl;
   assert((std::is_same<has_em&,operator_plus_assign_result<has_em&,has_em>::type>::value));
 
+  std::cout << "int has less than operator: " << has_operator_less<int>::value << std::endl;
+  assert(has_operator_less<int>::value);
+
+  std::cout << "result of int < float is bool: " << std::is_same<bool,operator_less_result<int,float>::type>::value << std::endl;
+  assert((std::is_same<bool,operator_less_result<int,float>::type>::value));
+
   return 0;
 }
 
